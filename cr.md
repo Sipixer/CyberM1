@@ -123,20 +123,20 @@ Ajout de la clé publique sur l'interface web de pfSense pour le user `admin`. E
 ![alt text](<Capture d’écran 2025-04-18 à 14.01.29.png>)
 ---
 
-**Tableau de connectivité réseau**  
-Voici le tableau de connectivité des différentes machines :
+**Matrice de test**  
+Voici la matrice de test de connectivité entre les différentes machines :
 
-| To/From           | Firefox | Webterm | Admin | PC1 | PC2 | App Server | DB Server | LAN Address | SRV Address |
-|-------------------|---------|---------|-------|-----|-----|------------|-----------|-------------|-------------|
-| **Firefox**        | -       | OK      | OK      | OK    | OK  | n.u. | n.u.       | t.o.      | n.u.        |
-| **Webterm**        | OK     | -     | OK      | OK    | OK  | n.u. | n.u.       | t.o.      | n.u.        |
-| **Admin**          | OK      | OK      | -    | OK    | OK  | n.u. | n.u.       | t.o.      | n.u.        |
-| **PC1**            | OK      | OK      | OK    | - | OK  | n.u. | n.u.       | t.o.      | n.u.        |
-| **PC2**            | OK      | OK      | OK    | OK  | - | n.u. | n.u.       | t.o.      | n.u.        |
-| **App Server**     | n.u.    | n.u.    | n.u.  | n.u. | OK  | -  |n.u.       | t.o.      | n.u.        |
-| **DB Server**      | n.u.    | n.u.    | n.u.  | n.u. | OK   | n.u.| -       | OK        | t.o.        |
-| **LAN Address**    | OK      | OK      | OK    | OK  | OK  | n.u.        | n.u.   | -   | n.u.        |
-| **SRV Address**    | n.u.    | n.u.    | n.u.  | n.u. | OK  | OK         | n.u.      | OK        | -  |
+| To/From       | Firefox | Webterm | Admin | PC1  | PC2  | App Server | DB Server | LAN Address | SRV Address |
+|---------------|---------|---------|-------|------|------|------------|-----------|-------------|-------------|
+| **Firefox**   | -       | OK      | OK    | OK   | OK   | n.u.       | n.u.      | t.o.        | n.u.        |
+| **Webterm**   | OK      | -       | OK    | OK   | OK   | n.u.       | n.u.      | t.o.        | n.u.        |
+| **Admin**     | OK      | OK      | -     | OK   | OK   | n.u.       | n.u.      | t.o.        | n.u.        |
+| **PC1**       | OK      | OK      | OK    | -    | OK   | n.u.       | n.u.      | t.o.        | n.u.        |
+| **PC2**       | OK      | OK      | OK    | OK   | -    | n.u.       | n.u.      | t.o.        | n.u.        |
+| **App Server**| n.u.    | n.u.    | n.u.  | n.u. | n.u. | -          | OK        | n.u.        | t.o.        |
+| **DB Server** | n.u.    | n.u.    | n.u.  | n.u. | n.u. | OK         | -         | n.u.        | t.o.        |
+| **LAN Address**| OK     | OK      | OK    | OK   | OK   | n.u.       | n.u.      | -           | n.u.        |
+| **SRV Address**| n.u.   | n.u.    | n.u.  | n.u. | n.u. | OK         | OK        | n.u.        | -           |
 
 ---
 
@@ -159,11 +159,13 @@ Voici les détails des captures réseau avec leurs interprétations et commentai
 Afin de résoudre le problème de l'absence de réponse au ping (capture sans réponse), on va autoriser les pings depuis n'importe où vers pfSense en ajoutant une règle dans le firewall.
 
 L'ajout de la règle permet au protocole ICMP, peu importe sa provenance, de permettre le ping.
+![alt text](<Capture d’écran 2025-04-18 à 14.09.46.png>)
 
 ---
 
 **Problème de la passerelle (gateway)**  
-Lors du test de ping entre le LAN et le SRV, rien ne se passe en raison de l'absence de passerelle. On ajoute donc une passerelle dans le DHCP pour le réseau interne.
+Lors du test de ping entre le LAN et le SRV, le ping ne peut pas s'effectuer car les machines n'ont pas de gateway sur laquelle aller pour apres chercher le bon réseau.
+![alt text](<Capture d’écran 2025-04-18 à 14.11.12.png>)
 
 Pour les machines qui ne sont pas sous DHCP (comme celles du sous-réseau SRV), on doit ajouter la passerelle manuellement dans le fichier de démarrage :
 ```bash
@@ -173,8 +175,7 @@ sudo route add default gw 192.168.2.254
 ---
 
 **Observation sur le DB Server**  
-On remarque que le **DB Server** peut envoyer un ping, mais qu'il ne reçoit pas de réponse car le firewall bloque l'accès. Cependant, les captures montrent bien qu'il a la passerelle définie correctement.
+On remarque que le **DB Server** peut envoyer un ping, mais qu'il ne reçoit pas de réponse car le firewall bloque l'accès. Cependant, les captures montrent bien que la passerelle est bien configurée. Cela fonctionne aussi au niveau des PC qui eux sont en DHCP.
 
+![alt text](<Capture d’écran 2025-04-18 à 14.11.27.png>)
 ---
-
-Cela résume les actions réalisées et les résultats obtenus durant ce TP3.
