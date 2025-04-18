@@ -138,6 +138,8 @@ Voici la matrice de test de connectivité entre les différentes machines :
 | **LAN Address**| OK     | OK      | OK    | OK   | OK   | n.u.       | n.u.      | -           | n.u.        |
 | **SRV Address**| n.u.   | n.u.    | n.u.  | n.u. | n.u. | OK         | OK        | n.u.        | -           |
 
+
+Seul le webterm ici peut pinger le serveur de base de données et l'application, parce qu'il a une gateway de setup.
 ---
 
 **Utilisation de tcpdump**
