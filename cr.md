@@ -44,7 +44,7 @@ Lancement du TP2.
 4. **Setup de FirefoxGuest :**
    - Cette fois, c’était plus simple grâce au DHCP, connexion à pfSense directement avec l’IP vérifiée.
 
-   ![alt text](<Capture d’écran 2025-04-17 à 15.58.35.png>)
+   ![alt text](<images/Capture_decran_20250417_a_15.58.35.png>)
 
 ---
 
@@ -52,10 +52,10 @@ Lancement du TP2.
 
 1. **Changement de mot de passe :**
    - J'ai changé le mot de passe par défaut sur pfSense.
-![alt text](<Capture d’écran 2025-04-17 à 15.58.50.png>)
+![alt text](<images/Capture_decran_20250417_a_15.58.50.png>)
 2. **Lecture des règles de pare-feu :**
-![alt text](<Capture d’écran 2025-04-17 à 15.59.39.png>)
-![alt text](<Capture d’écran 2025-04-17 à 15.59.52.png>)
+![alt text](<images/Capture_decran_20250417_a_15.59.39.png>)
+![alt text](<images/Capture_decran_20250417_a_15.59.52.png>)
    **Question :** Sur quelle interface se fait l’administration du pare-feu ?
    **Réponse :** L’administration du pare-feu se fait via l’interface LAN, avec le port 80, comme on peut le voir dans les règles, où ce port est toujours accessible pour ne pas bloquer l’accès à l’interface admin.
 
@@ -68,19 +68,19 @@ Lancement du TP2.
 
 1. **Mapping statique de FirefoxGuest :**
    - Je n’oublie pas de faire un mapping statique pour FirefoxGuest depuis le serveur DHCP.
-![alt text](<Capture d’écran 2025-04-17 à 16.00.14.png>)
+![alt text](<images/Capture_decran_20250417_a_16.00.14.png>)
 2. **Application de la configuration :**
    - Ne pas oublier d'appliquer la configuration sinon ça sert a rien de faire plein de restart ça corrigera pas le probleme....
 
 3. **Ajout des règles pour limiter l’accès à pfSense :**
    - J’ai bloqué l'accès à l’adresse LAN pour toutes les personnes qui ne sont pas dans l’alias par 192.168.1.2 et 192.168.1.3.
-   ![alt text](<Capture d’écran 2025-04-17 à 16.09.37.png>)
+   ![alt text](images/Capture_decran_20250418_a_15.11.27.png)
    - Ajout du TLS, puis une exception car le certificat n’était pas reconnu.
-![alt text](<Capture d’écran 2025-04-17 à 16.01.15.png>)
+![alt text](<images/Capture_decran_20250417_a_16.01.15.png>)
 
 4. **Règles HTTPS pour plus de sécurité :**
    - J’ai configuré des règles pour ne permettre l’accès qu’en HTTPS, ce qui renforce la sécurité.
-![alt text](<Capture d’écran 2025-04-17 à 16.01.30.png>)
+![alt text](<images/Capture_decran_20250417_a_16.01.30.png>)
    **Question :** Pourquoi le navigateur signale-t-il un risque de sécurité ?
    **Réponse :** Le navigateur montre un risque car le certificat est auto-signé. Il n’est pas reconnu par les autorités de certification, d’où l’avertissement.
 
@@ -106,21 +106,21 @@ Voici la reprise de ton texte avec une mise en forme claire, incluant les tablea
 
 1. **Ajout de l'interface en mode IP statique** avec l'adresse 192.168.2.254/24.
 2. **Vérification au niveau du DHCP** pour s'assurer qu'il est bien désactivé.
-![alt text](<Capture d’écran 2025-04-18 à 13.59.30.png>)
+![alt text](<images/Capture_decran_20250418_a_13.59.30.png>)
 
 ---
 
 **Connexion SSH au pfSense**  
 Ajout de la règle SSH dans le firewall pour autoriser les accès SSH depuis les PC admin.
-![alt text](<Capture d’écran 2025-04-18 à 14.00.08.png>)
+![alt text](<images/Capture_decran_20250418_a_14.00.08.png>)
 ---
 
 **Création de la clé privée/public**  
 Ajout de la clé publique sur l'interface web de pfSense pour le user `admin`. Ensuite, aller dans le système de configuration avancée et sélectionner l'utilisation obligatoire de la clé publique.
 
-![alt text](<Capture d’écran 2025-04-18 à 14.00.29.png>)
-![alt text](<Capture d’écran 2025-04-18 à 14.01.02.png>)
-![alt text](<Capture d’écran 2025-04-18 à 14.01.29.png>)
+![alt text](<images/Capture_decran_20250418_a_14.00.29.png>)
+![alt text](<images/Capture_decran_20250418_a_14.01.02.png>)
+![alt text](<images/Capture_decran_20250418_a_14.01.29.png>)
 ---
 
 **Matrice de test**  
@@ -159,13 +159,13 @@ Voici les détails des captures réseau avec leurs interprétations et commentai
 Afin de résoudre le problème de l'absence de réponse au ping (capture sans réponse), on va autoriser les pings depuis n'importe où vers pfSense en ajoutant une règle dans le firewall.
 
 L'ajout de la règle permet au protocole ICMP, peu importe sa provenance, de permettre le ping.
-![alt text](<Capture d’écran 2025-04-18 à 14.09.46.png>)
+![alt text](<images/Capture_decran_20250418_a_14.09.46.png>)
 
 ---
 
 **Problème de la passerelle (gateway)**  
 Lors du test de ping entre le LAN et le SRV, le ping ne peut pas s'effectuer car les machines n'ont pas de gateway sur laquelle aller pour apres chercher le bon réseau.
-![alt text](<Capture d’écran 2025-04-18 à 14.11.12.png>)
+![alt text](<images/Capture_decran_20250418_a_14.11.12.png>)
 
 Pour les machines qui ne sont pas sous DHCP (comme celles du sous-réseau SRV), on doit ajouter la passerelle manuellement dans le fichier de démarrage :
 ```bash
@@ -177,5 +177,5 @@ sudo route add default gw 192.168.2.254
 **Observation sur le DB Server**  
 On remarque que le **DB Server** peut envoyer un ping, mais qu'il ne reçoit pas de réponse car le firewall bloque l'accès. Cependant, les captures montrent bien que la passerelle est bien configurée. Cela fonctionne aussi au niveau des PC qui eux sont en DHCP.
 
-![alt text](<Capture d’écran 2025-04-18 à 14.11.27.png>)
+![alt text](<images/Capture_decran_20250418_a_14.11.27.png>)
 ---
