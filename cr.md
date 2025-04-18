@@ -174,8 +174,8 @@ sudo route add default gw 192.168.2.254
 
 ---
 
-**Observation sur le DB Server**  
-On remarque que le **DB Server** peut envoyer un ping, mais qu'il ne reçoit pas de réponse car le firewall bloque l'accès. Cependant, les captures montrent bien que la passerelle est bien configurée. Cela fonctionne aussi au niveau des PC qui eux sont en DHCP.
+**Observation**  
+On remarque que ce soit dans le sous reseau SRV ou dans le LAN, on a bien le ping qui passe entre les deux réseaux parce que l'on a bien mis la gateway et qu'il y a la règle dans le firewall pour autoriser le ping.
 
 ![alt text](<images/Capture_decran_20250418_a_14.11.27.png>)
 ---
