@@ -135,8 +135,7 @@ Voici la matrice de test de connectivité entre les différentes machines :
 | **PC2**       | OK      | OK      | OK    | OK   | -    | n.u.       | n.u.      | t.o.        | n.u.        |
 | **App Server**| n.u.    | n.u.    | n.u.  | n.u. | n.u. | -          | OK        | n.u.        | t.o.        |
 | **DB Server** | n.u.    | n.u.    | n.u.  | n.u. | n.u. | OK         | -         | n.u.        | t.o.        |
-| **LAN Address**| OK     | OK      | OK    | OK   | OK   | n.u.       | n.u.      | -           | n.u.        |
-| **SRV Address**| n.u.   | n.u.    | n.u.  | n.u. | n.u. | OK         | OK        | n.u.        | -           |
+| **FW**        | OK      | OK      | OK    | OK   | OK   | OK         | OK        | OK          | OK          |
 
 
 Seul le webterm ici peut pinger le serveur de base de données et l'application, parce qu'il a une gateway de setup.
