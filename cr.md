@@ -129,7 +129,7 @@ Voici la matrice de test de connectivité entre les différentes machines :
 | To/From       | Firefox | Webterm | Admin | PC1  | PC2  | App Server | DB Server | LAN Address | SRV Address |
 |---------------|---------|---------|-------|------|------|------------|-----------|-------------|-------------|
 | **Firefox**   | -       | OK      | OK    | OK   | OK   | n.u.       | n.u.      | t.o.        | n.u.        |
-| **Webterm**   | OK      | -       | OK    | OK   | OK   | n.u.       | n.u.      | t.o.        | n.u.        |
+| **Webterm**   | OK      | -       | OK    | OK   | OK   | t.o.       | t.o.      | t.o.        | t.o.        |
 | **Admin**     | OK      | OK      | -     | OK   | OK   | n.u.       | n.u.      | t.o.        | n.u.        |
 | **PC1**       | OK      | OK      | OK    | -    | OK   | n.u.       | n.u.      | t.o.        | n.u.        |
 | **PC2**       | OK      | OK      | OK    | OK   | -    | n.u.       | n.u.      | t.o.        | n.u.        |
@@ -149,7 +149,7 @@ Voici les détails des captures réseau avec leurs interprétations et commentai
 | **MicroCoreAdmin**  | **Webterm**         | n                | n                | Ping OK, aucun flux capturé car le trafic passe uniquement par le switch. |
 | **MicroCoreAdmin**  | **fw LAN Address**  | o                | n                | Ping OK, flux aller/retour. `09:58:52.713773 IP 192.168.1.1 > 192.168.1.254: ICMP echo request` |
 | **MicroCoreAdmin**  | **MicroCore-server**| n                | n                | Ping échoué : `ping: sendto: Network is unreachable`.               |
-| **Webterm**         | **MicroCore-server**| n                | n                | Ping échoué : `ping: sendto: Network is unreachable`.               |
+| **Webterm**         | **MicroCore-server**| n                | n                | Ping échoué mais flux capturé.               |
 | **MicroCore-Server**| **fw SRV address**  | n                | o                | Timeout PING, mais ARP capturé. `10:07:12.783039 ARP, Request who-has 192.168.2.254` |
 | **fw SRV address**  | **MicroCoreServer** | n                | o                | PING OK. Captures ARP et ICMP, flux aller/retour.                  |
 
