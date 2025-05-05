@@ -180,3 +180,29 @@ On remarque que ce soit dans le sous reseau SRV ou dans le LAN, on a bien le pin
 
 ![alt text](<images/Capture_decran_20250418_a_14.11.27.png>)
 ---
+
+**Début du TP3 : 05/05/2025**
+
+Regle de pare-feu actuelle :
+
+LAN:
+![alt text](<images/Capture_decran_20250505_a_14.11.27.png>)
+SRV:
+![alt text](<images/Capture_decran_20250505_a_14.11.28.png>)
+
+Matrice de flux:
+
+| Source Name | Source IP     | FW Incoming IF | FW Outgoing IF | Destination Name | Destination IP | Protocol (Layer 3-4) |
+| ----------- | ------------- | -------------- | -------------- | ---------------- | -------------- | -------------------- |
+| PCAdmin     | 192.168.1.1-3 | em1            | em2            | Server & DB      | 192.168.2.1-2  | ICMP                 |
+| Server      | 192.168.2.1-2 | em2            | em1            | Admin            | 192.168.1.1-3  | ICMP                 |
+| PCAdmin     | 192.168.1.1-3 | em1            | em2            | Server & DB      | 192.168.2.1-2  | TCP                  |
+| Server      | 192.168.2.1-2 | em2            | em1            | Admin            | 192.168.1.1-3  | TCP                  |
+| PCAdmin     | 192.168.1.1-3 | em1            |                | FW               | 192.168.1.254  | TCP                  |
+| Server      | 192.168.2.1-2 | em2            |                | FW               | 192.168.2.254  | TCP                  |
+
+
+## WireShark
+Connexion a l'interface de pfSense via le webterm resultat dans le Wireshark:
+
+![alt text](<images/Capture_decran_20250505_a_14.11.29.png>)
