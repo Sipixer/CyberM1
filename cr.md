@@ -206,3 +206,23 @@ Matrice de flux:
 Connexion a l'interface de pfSense via le webterm resultat dans le Wireshark:
 
 ![alt text](<images/Capture_decran_20250505_a_14.11.29.png>)
+
+
+### 🔹 1. **Décomposition OSI de la trame 1**
+
+| Couche OSI                                              | Protocole/Donnée dans cette trame                                   |
+| ------------------------------------------------------- | ------------------------------------------------------------------- |
+| **Couche 2 - Liaison**                                  | **Ethernet II** : adresses MAC source/destination                   |
+| **Couche 3 - Réseau**                                   | **IPv4** : IP source `192.168.1.2` → IP destination `192.168.1.254` |
+| **Couche 4 - Transport**                                | **TCP** : port source `34826` → port destination `443`              |
+| **Couche 5 à 7 - Session / Présentation / Application** | **TLSv1.2**          |
+
+
+### 🔹 2. **Evidence du handshake TCP**
+
+Dans cette capture Wireshark, le handshake TCP initial (SYN, SYN-ACK, ACK) n’apparaît pas dans les paquets visibles. L’échange commence à partir du paquet numéro 2, où le client (`192.168.1.2`) envoie déjà un paquet **ACK** au serveur (`192.168.1.254`) sur le port 443, ce qui indique que la connexion TCP a **déjà été établie**. Les paquets suivants montrent les échanges TLS, qui reposent sur cette connexion préexistante.
+
+
+
+
+
