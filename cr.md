@@ -1,5 +1,4 @@
-# Compte Rendu de TP - GNS3 et pfSense
-**TP1 - 17/04/2025**
+# Début du TP1 : 17/04/2025
 
 Mise en place de GNS3 en client local sur macOS avec l’utilisation du serveur GNS3 du lab via WireGuard.
 
@@ -9,7 +8,7 @@ Mise en place de GNS3 en client local sur macOS avec l’utilisation du serveur 
 
 ---
 
-**TP2**
+# Début du TP2 : 17/04/2025
 
 Lancement du TP2.
 
@@ -101,8 +100,7 @@ Ajout de l'ip administrateur 192.168.1.1 donc ajouter a l'alias.
 Voici la reprise de ton texte avec une mise en forme claire, incluant les tableaux et les étapes que tu as mentionnées :
 
 ---
-
-**Début du TP3 : 18/04/2025**
+# Début du TP3 : 18/04/2025
 
 1. **Ajout de l'interface en mode IP statique** avec l'adresse 192.168.2.254/24.
 2. **Vérification au niveau du DHCP** pour s'assurer qu'il est bien désactivé.
@@ -181,7 +179,7 @@ On remarque que ce soit dans le sous reseau SRV ou dans le LAN, on a bien le pin
 ![alt text](<images/Capture_decran_20250418_a_14.11.27.png>)
 ---
 
-**Début du TP3 : 05/05/2025**
+# Début du TP4 : 05/05/2025
 
 Regle de pare-feu actuelle :
 
@@ -192,14 +190,10 @@ SRV:
 
 Matrice de flux:
 
-| Source Name | Source IP     | FW Incoming IF | FW Outgoing IF | Destination Name | Destination IP | Protocol (Layer 3-4) |
-| ----------- | ------------- | -------------- | -------------- | ---------------- | -------------- | -------------------- |
-| PCAdmin     | 192.168.1.1-3 | em1            | em2            | Server & DB      | 192.168.2.1-2  | ICMP                 |
-| Server      | 192.168.2.1-2 | em2            | em1            | Admin            | 192.168.1.1-3  | ICMP                 |
-| PCAdmin     | 192.168.1.1-3 | em1            | em2            | Server & DB      | 192.168.2.1-2  | TCP                  |
-| Server      | 192.168.2.1-2 | em2            | em1            | Admin            | 192.168.1.1-3  | TCP                  |
-| PCAdmin     | 192.168.1.1-3 | em1            |                | FW               | 192.168.1.254  | TCP                  |
-| Server      | 192.168.2.1-2 | em2            |                | FW               | 192.168.2.254  | TCP                  |
+| Source - Name | Source - IP     | Firewall Incoming Interface | Firewall Outgoing Interface | Destination - Name | Destination - IP | Protocol (L3-L4) | Port / Service (L5-L7) | Action |
+| ------------- | --------------- | --------------------------- | --------------------------- | ------------------ | ---------------- | ---------------- | ---------------------- | ------ |
+| All internal  | \*              | All internal interfaces     | any                         | \*                 | \*               | IMCP             |                        | Allow  |
+| PCAdmin       | 192.168.1.1-3   | em1                         |                             | FW                 | 192.168.1.254    | TCP              | HTTPS / SSH            | Allow  |
 
 
 ## WireShark
@@ -222,7 +216,21 @@ Connexion a l'interface de pfSense via le webterm resultat dans le Wireshark:
 
 Dans cette capture Wireshark, le handshake TCP initial (SYN, SYN-ACK, ACK) n’apparaît pas dans les paquets visibles. L’échange commence à partir du paquet numéro 2, où le client (`192.168.1.2`) envoie déjà un paquet **ACK** au serveur (`192.168.1.254`) sur le port 443, ce qui indique que la connexion TCP a **déjà été établie**. Les paquets suivants montrent les échanges TLS, qui reposent sur cette connexion préexistante.
 
+## Configuration des VLANs
 
+Apres avoir configuré les VLANs sur pfSense,
+![alt text](assets/file_1746453810893.png)
 
+Il faut modifier le VLAN user pour ajouter le DHCP.
 
+![alt text](assets/file_1746440293724.png)
+![alt text](assets/file_1746440305989.png)
 
+La configuration au niveau du switch pour les vlans:
+![alt text](assets/file_1746454037225.png)
+
+Test de ping entre PC1 et PC2:
+![alt text](assets/file_1746440262704.png)
+
+Création du VLAN 20 admin et ajout des règles de firewall:
+![alt text](assets/file_1746453941562.png)
